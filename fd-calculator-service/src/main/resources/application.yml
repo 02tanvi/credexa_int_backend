@@ -1,0 +1,80 @@
+server:
+  port: 8087
+  servlet:
+    context-path: /api/calculator
+
+spring:
+  application:
+    name: fd-calculator-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/calculator_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: Tanvi@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=24h
+    cache-names:
+      - products
+      - interestRates
+      - customerClassifications
+
+# Swagger/OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+  show-actuator: false
+
+# JWT Configuration
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  expiration: 3600000
+
+# Service URLs for inter-service communication
+services:
+  product-pricing:
+    url: http://localhost:8084/api/products/products
+  customer:
+    url: http://localhost:8083/api/customers
+
+# Cache Configuration
+cache:
+  refresh:
+    cron: "0 0 2 * * ?" # Daily at 2 AM
+    enabled: true
+
+# Logging
+logging:
+  level:
+    com.app.calculator: DEBUG
+    org.springframework.cache: DEBUG
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,caches
+  endpoint:
+    health:
+      show-details: always

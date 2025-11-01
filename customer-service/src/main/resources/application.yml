@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: customer-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/customer_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: Tanvi@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+  security:
+    enabled: true
+
+server:
+  port: 8083
+  servlet:
+    context-path: /api/customer
+
+# JWT Configuration
+jwt:
+  secret: mySecretKeyForCredexaApplicationMustBe256BitsLongForHS256AlgorithmToWorkProperly
+  expiration: 3600000
+
+# Login Service Configuration
+login-service:
+  url: http://localhost:8081/api/auth
+
+# Email Service Configuration
+email-service:
+  url: http://localhost:8085
+  enabled: true
+
+# Swagger/OpenAPI Configuration
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+# Logging
+logging:
+  level:
+    com.app.customer: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

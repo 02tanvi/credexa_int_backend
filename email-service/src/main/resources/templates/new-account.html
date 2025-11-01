@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-wrapper {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+        }
+        .logo-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px;
+            text-align: center;
+        }
+        .logo {
+            width: 50px;
+            height: auto;
+        }
+        .email-body {
+            padding: 30px;
+            background-color: #ffffff;
+        }
+        .email-body p {
+            margin: 15px 0;
+        }
+        .greeting {
+            font-size: 16px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .details-box {
+            background-color: #f9f9f9;
+            border-left: 3px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .details-box p {
+            margin: 8px 0;
+        }
+        .highlight-amount {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .highlight-amount .amount {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .maturity-info {
+            background-color: #fff9e6;
+            border-left: 3px solid #ffcc00;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .maturity-info p {
+            margin: 8px 0;
+        }
+        .info-list {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .info-list ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .info-list li {
+            margin: 5px 0;
+        }
+        .button-link {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 15px 0;
+            background-color: #667eea;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .support-info {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        .email-footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        .email-footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="logo-section">
+            <img src="../static/images/logo.png" alt="Logo" class="logo" />
+        </div>
+        
+        <div class="email-body">
+            <p><strong>New Account Opened Successfully!</strong></p>
+            
+            <p class="greeting">🎊 Great News, <span th:text="${customerName}"></span>!</p>
+            
+            <p>Your new <strong th:text="${accountType}">Fixed Deposit</strong> account has been successfully opened with Credexa.</p>
+            
+            <div class="details-box">
+                <p><strong>Account Information</strong></p>
+                <p><strong>Account Number:</strong> <span th:text="${accountNumber}"></span></p>
+                <p><strong>Account Type:</strong> <span th:text="${accountType}"></span></p>
+                <p><strong>Account Holder:</strong> <span th:text="${customerName}"></span></p>
+                <p><strong>Opening Date:</strong> <span th:text="${openingDate}"></span></p>
+                <p><strong>Status:</strong> <span style="color: #4CAF50;">Active</span></p>
+            </div>
+            
+            <div th:if="${depositAmount}" class="highlight-amount">
+                <p style="margin: 0; font-size: 13px;">Deposit Amount</p>
+                <div class="amount">
+                    ₹<span th:text="${depositAmount}"></span>
+                </div>
+                <p style="margin: 5px 0 0 0; font-size: 13px;" th:if="${interestRate}">
+                    @ <span th:text="${interestRate}"></span>% p.a.
+                </p>
+            </div>
+            
+            <div th:if="${maturityDate}" class="maturity-info">
+                <p>
+                    <strong>📅 Maturity Date:</strong> 
+                    <span th:text="${maturityDate}"></span>
+                </p>
+                <p th:if="${maturityAmount}">
+                    <strong>💰 Maturity Amount:</strong> 
+                    ₹<span th:text="${maturityAmount}"></span>
+                </p>
+            </div>
+            
+            <div class="info-list">
+                <p><strong>Account Benefits:</strong></p>
+                <ul>
+                    <li>Secure and guaranteed returns</li>
+                    <li>24/7 online account access</li>
+                    <li>Instant transaction alerts</li>
+                    <li>Easy account management</li>
+                    <li>Dedicated customer support</li>
+                </ul>
+            </div>
+            
+            <p th:if="${accountUrl}" style="text-align: center;">
+                <a th:href="${accountUrl}" class="button-link">View Account Details</a>
+            </p>
+            
+            <p>Thank you for continuing your financial journey with Credexa!</p>
+            
+            <p>
+                <strong>Best regards</strong>,<br/>
+                The Credexa Team
+            </p>
+        </div>
+        
+        <div class="email-footer">
+            <p>&copy; 2025 Credexa. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+

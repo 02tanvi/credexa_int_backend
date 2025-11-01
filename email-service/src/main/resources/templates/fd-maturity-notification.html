@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FD Maturity Notice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px 20px;
+        }
+        .greeting {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .notice-text {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 15px;
+            color: #856404;
+        }
+        .account-details {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: #555;
+        }
+        .detail-value {
+            color: #333;
+            text-align: right;
+        }
+        .maturity-amount {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .maturity-amount .label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        .maturity-amount .amount {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .instruction-box {
+            background-color: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .instruction-box h3 {
+            margin: 0 0 10px 0;
+            color: #1976D2;
+            font-size: 16px;
+        }
+        .instruction-box p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 14px;
+            background-color: #f8f9fa;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .brand {
+            color: #667eea;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏦 FD Maturity Notice</h1>
+            <p>Credexa - Your Trusted Banking Partner</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="greeting">
+                Dear <strong th:text="${customerName}"></strong>,
+            </div>
+
+            <div class="notice-text">
+                <strong>⏰ Important Notice:</strong> Your Fixed Deposit account will mature in <strong th:text="${daysUntilMaturity}"></strong>.
+            </div>
+
+            <p style="margin: 20px 0; color: #555;">
+                This is to inform you that your Fixed Deposit account is approaching its maturity date. 
+                Please find the details of your account below:
+            </p>
+
+            <!-- Account Details -->
+            <div class="account-details">
+                <div class="detail-row">
+                    <span class="detail-label">Account Number:</span>
+                    <span class="detail-value" th:text="${accountNumber}"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Account Name:</span>
+                    <span class="detail-value" th:text="${accountName}"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Principal Amount:</span>
+                    <span class="detail-value" th:text="${principalAmount}"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Interest Rate:</span>
+                    <span class="detail-value" th:text="${interestRate}"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Maturity Date:</span>
+                    <span class="detail-value" th:text="${maturityDate}"></span>
+                </div>
+            </div>
+
+            <!-- Maturity Amount -->
+            <div class="maturity-amount">
+                <div class="label">Maturity Amount</div>
+                <div class="amount" th:text="${maturityAmount}"></div>
+            </div>
+
+            <!-- Maturity Instruction -->
+            <div class="instruction-box">
+                <h3>📋 Maturity Instruction</h3>
+                <p><strong>Current Instruction:</strong> <span th:text="${maturityInstruction}"></span></p>
+                <p th:if="${maturityInstruction == 'HOLD'}">
+                    The maturity amount will be held in your account. You can withdraw it at your convenience.
+                </p>
+                <p th:if="${maturityInstruction == 'AUTO_RENEW'}">
+                    Your FD will be automatically renewed for the same tenure with the prevailing interest rate.
+                </p>
+                <p th:if="${maturityInstruction == 'TRANSFER' && transferAccount != null}">
+                    The maturity amount will be transferred to account: <strong th:text="${transferAccount}"></strong>
+                </p>
+                <p th:if="${maturityInstruction == 'CLOSE'}">
+                    The account will be closed and the maturity amount will be credited to your linked account.
+                </p>
+            </div>
+
+            <p style="margin: 20px 0; color: #555;">
+                If you wish to modify your maturity instruction, please visit your nearest branch or use our online banking services.
+            </p>
+
+            <p style="margin: 20px 0; color: #555;">
+                Thank you for choosing <span class="brand">Credexa</span> for your banking needs.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Credexa</strong></p>
+            <p>This is an automated notification. Please do not reply to this email.</p>
+        </div>
+    </div>
+</body>
+</html>

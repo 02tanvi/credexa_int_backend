@@ -1,0 +1,105 @@
+spring:
+  application:
+    name: login-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/login_db?createDatabaseIfNotExist=true
+    username: root
+    password: Tanvi@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+  security:
+    user:
+      name: admin
+      password: admin
+
+server:
+  port: 8081
+  servlet:
+    context-path: /api/auth
+
+# JWT Configuration
+jwt:
+  secret: mySecretKeyForCredexaApplicationMustBe256BitsLongForHS256AlgorithmToWorkProperly
+  expiration: 3600000 # 1 hour in milliseconds
+
+# Session Configuration
+session:
+  idle-timeout: 300000 # 5 minutes in milliseconds
+
+# Kafka Configuration (disabled by default - set to true when Kafka is available)
+spring.kafka:
+  enabled: false # Set to true to enable Kafka event publishing
+  bootstrap-servers: localhost:9092
+  producer:
+    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  consumer:
+    group-id: login-service-group
+    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    properties:
+      spring.json.trusted.packages: "*"
+  admin:
+    fail-fast: false # Don't fail startup if Kafka is unavailable
+
+# Swagger/OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operations-sorter: method
+
+# Logging
+logging:
+  level:
+    com.app.login: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+
+# Bank Configuration (Default values - can be customized)
+bank:
+  name: Credexa Bank
+  logo-url: /assets/logo.png
+  supported-languages:
+    - en
+    - hi
+    - es
+  supported-currencies:
+    - code: USD
+      decimal-places: 2
+    - code: EUR
+      decimal-places: 2
+    - code: INR
+      decimal-places: 2
+    - code: BHD
+      decimal-places: 3
+    - code: JPY
+      decimal-places: 0
+
+# Microservices URLs
+microservices:
+  customer-service:
+    url: http://localhost:8083/api/customer
+  product-pricing-service:
+    url: http://localhost:8082/api/products
+  fd-calculator-service:
+    url: http://localhost:8084/api/calculator
+  fd-account-service:
+    url: http://localhost:8085/api/fd-accounts
+
+# Email Service Configuration
+email-service:
+  url: http://localhost:8085/api/email
+  enabled: true

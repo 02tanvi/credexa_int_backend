@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Notification</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .greeting {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .login-box {
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .login-box h3 {
+            margin-top: 0;
+            color: #17a2b8;
+            font-size: 16px;
+        }
+        .login-detail {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #555;
+        }
+        .login-detail strong {
+            color: #333;
+            display: inline-block;
+            min-width: 120px;
+        }
+        .security-notice {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #856404;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>🔐 Login Notification</h1>
+        </div>
+        
+        <div class="content">
+            <div class="greeting">
+                Hello <strong th:text="${username}">User</strong>,
+            </div>
+            
+            <p>We detected a login to your account. Here are the details:</p>
+            
+            <div class="login-box">
+                <h3>📋 Login Details</h3>
+                <div class="login-detail">
+                    <strong>Username:</strong> <span th:text="${username}"></span>
+                </div>
+                <div class="login-detail">
+                    <strong>Login Time:</strong> <span th:text="${loginTime}"></span>
+                </div>
+                <div class="login-detail" th:if="${ipAddress}">
+                    <strong>IP Address:</strong> <span th:text="${ipAddress}"></span>
+                </div>
+                <div class="login-detail" th:if="${deviceInfo}">
+                    <strong>Device:</strong> <span th:text="${deviceInfo}"></span>
+                </div>
+                <div class="login-detail" th:if="${location}">
+                    <strong>Location:</strong> <span th:text="${location}"></span>
+                </div>
+            </div>
+            
+            <div class="security-notice">
+                <strong>⚠️ Security Notice:</strong> If you did not perform this login, please change your password immediately and review your account activity.
+            </div>
+            
+            <p style="margin-top: 30px; color: #666;">
+                Thank you for using Credexa Banking Services.
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Credexa Banking Services</strong></p>
+            <p>This is an automated security notification. Please do not reply to this message.</p>
+            <p>&copy; 2025 Credexa. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

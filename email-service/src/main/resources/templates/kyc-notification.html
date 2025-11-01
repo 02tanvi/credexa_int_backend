@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-wrapper {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+        }
+        .logo-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px;
+            text-align: center;
+        }
+        .logo {
+            width: 50px;
+            height: auto;
+        }
+        .email-body {
+            padding: 30px;
+            background-color: #ffffff;
+        }
+        .email-body p {
+            margin: 15px 0;
+        }
+        .details-box {
+            background-color: #f9f9f9;
+            border-left: 3px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .details-box p {
+            margin: 8px 0;
+        }
+        .email-footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="logo-section">
+            <img src="../static/images/logo.png" alt="Logo" class="logo" />
+        </div>
+        
+        <div class="email-body">
+            <p><strong>KYC Verification Approved</strong></p>
+            
+            <p>Dear <span th:text="${name}"></span>,</p>
+            
+            <p>We are pleased to inform you that your KYC verification has been successfully approved.</p>
+            
+            <p>You can now enjoy full access to Credexa banking services.</p>
+            
+            <p>
+                Best regards,<br/>
+                Credexa Customer Service
+            </p>
+        </div>
+        
+        <div class="email-footer">
+            <p>&copy; 2025 Credexa. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
